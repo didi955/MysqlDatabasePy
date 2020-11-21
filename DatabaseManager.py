@@ -9,7 +9,7 @@ class DatabaseManager(Enum):
     def __init__(self, credentials: DatabaseCredentials):
         self.databaseAccess = DatabaseAccess(credentials)
 
-    def getDatabaseAccess(self):
+    def getDatabaseAccess(self) -> DatabaseAccess:
         return self.databaseAccess
 
     @staticmethod

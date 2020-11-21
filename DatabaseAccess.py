@@ -27,7 +27,7 @@ class DatabaseAccess:
         except Error as e:
             print("Error while connecting to MySQL using Connection pool ", e)
 
-    def getConnection(self):
+    def getConnection(self) -> mysql.connector.pooling.PooledMySQLConnection:
         return self.connection
 
     def initPool(self):
