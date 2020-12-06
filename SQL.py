@@ -1,15 +1,34 @@
 from mysql.connector.pooling import *
 
 
-def update(connection: PooledMySQLConnection, qry: str):
+def update(connection: PooledMySQLConnection, qry: str, *args):
     cursor = connection.cursor()
-    cursor.execute(qry)
+    if len(args) == 0:
+        cursor.execute(qry)
+    else:
+        for arg in args:
+            cursor.execute(qry, arg)
+    connection.commit()
     cursor.close()
 
 
-def query(connection: PooledMySQLConnection, qry: str) -> list:
+def queryAll(connection: PooledMySQLConnection, qry: str, *args) -> list:
     cursor = connection.cursor()
-    cursor.execute(qry)
+    if len(args) == 0:
+        cursor.execute(qry)
+    else:
+        for arg in args:
+            cursor.execute(qry, arg)
     rs = cursor.fetchall()
-    cursor.close()
+    return rs
+
+
+def queryOne(connection: PooledMySQLConnection, qry: str, *args) -> list:
+    cursor = connection.cursor()
+    if len(args) == 0:
+        cursor.execute(qry)
+    else:
+        for arg in args:
+            cursor.execute(qry, arg)
+    rs = cursor.fetchone()
     return rs
